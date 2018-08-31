@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>点餐管理面板</title>
+
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/css/dashboard.css" rel="stylesheet">
+    <style>
+        .t{
+            width: 100%;
+            height: auto;
+        }
+        .zhong{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">点餐系统 V2.0</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li id="tuichu"><a href="#">退出登录</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                <li>
+                    <a href="/admin">
+                        <!--<i class="glyphicon glyphicon-th-large"></i>-->
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-header collapsed" data-toggle="collapse">
+                        商品管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="systemSetting" class="nav nav-list secondmenu" style="height: 0px;">
+                        <li><a href="/leibie">&nbsp;&nbsp;商品分类</a></li>
+                        <li><a href="#">&nbsp;&nbsp;商品列表</a></li>
+                        <li class="active"><a href="/zengjia">&nbsp;&nbsp;增加商品</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+            <h1 class="page-header">商品列表</h1>
+            <!-- Modal -->
+            <div class="container">
+
+                <p style="display: inline-block">
+                    <select class="form-control suo" id="zhonglei" name="zhonglei">
+                        <option value=""  style="display:none">请选择</option>
+                    </select>
+                </p>
+                <p style="display: inline-block">
+                    <input type="text" id="sou">
+                    <button type="button" class="btn btn-primary" id="que">确定</button>
+                </p>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/xinde" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;    line-height: 33px;">所属分类：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <select class="form-control" id="lei" name="lei">
+
+                                            </select>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;line-height: 33px;">商品名称：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <input type="text" class="form-control" name="name" value="" disabled>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;   line-height: 33px;">商品价格：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <input type="text" class="form-control" name="monge" value="">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;    line-height: 33px;">商品排序：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <input type="text" class="form-control" name="pai" value="">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;line-height: 33px;">封面图：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <input type="file" class="form-control" name="tu" style="border: none;box-shadow: none ">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;    line-height: 33px;">商品描述：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <textarea rows="10" cols="60" name="miao"></textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;    line-height: 33px;">状态：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <label><input type="radio"  value="未审核" name="shenhe" checked>未审核</label>
+                                            <label><input type="radio"  value="审核" name="shenhe">审核</label>
+                                        </p>
+                                    </div>
+                                </div><div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 13px;    line-height: 33px;">加入推荐：</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <input type="checkbox" value="精品" name="jingpin">精品
+                                            <input type="checkbox" value="热销" name="rexiao">热销
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        <form/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--   Basic Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading tou">
+                            <div class="row te">
+                                <div class="col-lg-4 zhong"><span style="    padding-left: 10px;">标题</span></div>
+                                <div class="col-lg-2 zhong">分类</div>
+                                <div class="col-lg-1 zhong">价格</div>
+                                <div class="col-lg-1 zhong">推荐</div>
+                                <div class="col-lg-1 zhong">热销</div>
+                                <div class="col-lg-1 zhong">状态</div>
+                                <div class="col-lg-2 zhong">操作</div>
+                            </div>
+                        </div>
+                        <div class="panel-body du">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody id="tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
+<script>
+    $.get("/leibie1",function(data){
+        $.each(data.results,function(i, n){
+            //创建一个tr标签
+            $(' <option id="cai" data-sid="'+n.sid +'">'+n.sid +'</option>').appendTo($('#zhonglei'));
+        });
+    });
+    $.get("/caixi",function(data){
+        console.log(data);
+        $.each(data.results,function(i, n){
+            //创建一个tr标签
+            $tr = $("<tr class='row'></tr>");
+            $td = $("<td class='col-md-4'></td>").appendTo($tr);
+            $p = $("<p style='text-align: center'></p>").html(n.name).appendTo($td);
+            $("<img style='width: 114px;height: 81px;margin: 0 auto; display: block;' src='../uploads/"+ n.tu + ".jpg'>").appendTo($td)
+            $("<td class='col-md-2 zhong'style='line-height: 131px;'></td>").html(n.lei).appendTo($tr);
+            $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html(n.monge).appendTo($tr);
+            if (n.jingpin == "" && n.rexiao == "") {
+                $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+            }else{
+                $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+            }
+            if (n.rexiao == "热销") {
+                $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+            }else{
+                $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+            }
+            if (n.jingpin == "精品") {
+                $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("√").appendTo($tr);
+            }else{
+                $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("×").appendTo($tr);
+            }
+
+            $("<td class='col-md-2' style='line-height: 131px;'><input type='button' style='margin: 0 20px;' class='btn btn-danger delbtn' value='删除' data-sid='" + n.name +"'/> <input type='button' id='xiu' class='btn btn-warning' data-toggle='modal' data-target='#myModal'  value='修改' data-sid='" + n.name + "'/></td>").appendTo($tr);
+            // 上树
+            $tr.appendTo($("#tbody"));
+        });
+    })
+    $("#tbody").delegate("#xiu","click",function(){
+        var name = $(this).attr("data-sid");
+        console.log(name)
+        $.get("/chazhao/"+name,function (date) {
+            $.get("/leibie1",function(data){
+                $.each(data.results,function(i, n){
+                    //创建一个tr标签
+                    $(' <option>'+n.sid +'</option>').appendTo($('#lei'));
+                });
+            });
+            $("select[name=lei]").val(date.info.lei);
+            $("input[name=name]").val(date.info.name);
+            $("input[name=monge]").val(date.info.monge);
+            $("input[name=pai]").val(date.info.pai);
+            $("textarea[name=miao]").val(date.info.miao);
+            if(date.info.shenhe == "未审核"){
+                $("input[value='未审核']").attr({"checked":"checked"});
+            }else{
+                $("input[value='审核']").attr({"checked":"checked"});
+            }
+            if (date.info.jingpin == "精品"){
+                $("input[name=jingpin]").attr({"checked":"checked"});
+            }
+            if (date.info.rexiao == "热销"){
+                $("input[name=rexiao]").attr({"checked":"checked"});
+            }
+        })
+    })
+    $("#tbody").delegate(".delbtn","click",function () {
+        if(!confirm("真的要删除么")){
+            return;
+        }
+        var name = $(this).attr("data-sid");
+        var $this = $(this);
+        $.ajax({
+            url : "/shan/" + name,
+            type : "delete",
+            success : function(data){
+                if(data.result == 1){
+                    alert("删除成功");
+                    $this.parents("tr").remove();
+                }else{
+                    alert("服务器错误！");
+                }
+            }
+        });
+    })
+    $("#zhonglei").blur(function () {
+        var lei =  $(this).val()
+        if (lei == ""){
+            return;
+        }
+        $("#tbody").empty();
+        $.get('/caileiba?lei='+lei,function (data) {
+            $.each(data.results,function(i, n){
+                //创建一个tr标签
+                $tr = $("<tr class='row'></tr>");
+                $td = $("<td class='col-md-4'></td>").appendTo($tr);
+                $p = $("<p style='text-align: center'></p>").html(n.name).appendTo($td);
+                $("<img style='width: 114px;height: 81px;margin: 0 auto; display: block;' src='../uploads/"+ n.tu + ".jpg'>").appendTo($td)
+                $("<td class='col-md-2 zhong'style='line-height: 131px;'></td>").html(n.lei).appendTo($tr);
+                $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html(n.monge).appendTo($tr);
+                if (n.jingpin == "" && n.rexiao == "") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+                }
+                if (n.rexiao == "热销") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+                }
+                if (n.jingpin == "精品") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("√").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("×").appendTo($tr);
+                }
+
+                $("<td class='col-md-2' style='line-height: 131px;'><input type='button' style='margin: 0 20px;' class='btn btn-danger delbtn' value='删除' data-sid='" + n.name +"'/> <input type='button' id='xiu' class='btn btn-warning' data-toggle='modal' data-target='#myModal'  value='修改' data-sid='" + n.name + "'/></td>").appendTo($tr);
+                // 上树
+                $tr.appendTo($("#tbody"));
+            });
+        })
+    })
+    $("#que").click(function () {
+        var sou = $("#sou").val();
+        $.get("/search?sou="+sou,function (data) {
+            $("#tbody").empty();
+            $("#sou").val("");
+            $.each(data.results,function(i, n){
+                //创建一个tr标签
+                $tr = $("<tr class='row'></tr>");
+                $td = $("<td class='col-md-4'></td>").appendTo($tr);
+                $p = $("<p style='text-align: center'></p>").html(n.name).appendTo($td);
+                $("<img style='width: 114px;height: 81px;margin: 0 auto; display: block;' src='../uploads/"+ n.tu + ".jpg'>").appendTo($td)
+                $("<td class='col-md-2 zhong'style='line-height: 131px;'></td>").html(n.lei).appendTo($tr);
+                $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html(n.monge).appendTo($tr);
+                if (n.jingpin == "" && n.rexiao == "") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+                }
+                if (n.rexiao == "热销") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: green;'></td>").html("√").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px; color: red;'></td>").html("×").appendTo($tr);
+                }
+                if (n.jingpin == "精品") {
+                    $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("√").appendTo($tr);
+                }else{
+                    $("<td class='col-md-1 zhong' style='line-height: 131px;'></td>").html("×").appendTo($tr);
+                }
+
+                $("<td class='col-md-2' style='line-height: 131px;'><input type='button' style='margin: 0 20px;' class='btn btn-danger delbtn' value='删除' data-sid='" + n.name +"'/> <input type='button' id='xiu' class='btn btn-warning' data-toggle='modal' data-target='#myModal'  value='修改' data-sid='" + n.name + "'/></td>").appendTo($tr);
+                // 上树
+                $tr.appendTo($("#tbody"));
+            });
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>点餐管理面板</title>
+
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/css/dashboard.css" rel="stylesheet">
+    <style>
+        .t{
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">点餐系统 V2.0</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li id="tuichu"><a href="#">退出登录</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                <li>
+                    <a href="/admin">
+                        <!--<i class="glyphicon glyphicon-th-large"></i>-->
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-header collapsed" data-toggle="collapse">
+                        商品管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="systemSetting" class="nav nav-list secondmenu" style="height: 0px;">
+                        <li><a href="/leibie">&nbsp;&nbsp;商品分类</a></li>
+                        <li><a href="/liebiao">&nbsp;&nbsp;商品列表</a></li>
+                        <li class="active"><a href="#">&nbsp;&nbsp;增加商品</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <h1 class="page-header">增加商品</h1>
+            <form action="/uploads" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            所属类型：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <select id="lei" name="lei" class="form-control" ></select>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            商品名称：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <input type="text" id="name" class="form-control" name="name">
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            商品价格：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <input type="text" id="monge" class="form-control" name="monge">
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            商品排序：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <input type="text" id="pai" class="form-control" name="pai">
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            封面图：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <input id="tu" name="tu" type="file" />
+                            <div class="image_container">
+                                <img id="preview" style="height:130px;width:117px;border-width:0px;"/>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            商品描述：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <textarea type="text" id="miao" class="form-control"  name="miao" rows="10"></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            状态：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <label><input type="radio"  value="未审核" name="shenhe" checked>未审核</label>
+                            <label><input type="radio"  value="审核" name="shenhe">审核</label>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>
+                            加入推荐：
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <p>
+                            <input type="checkbox" value="精品" name="jingpin">精品
+                            <input type="checkbox" value="热销" name="rexiao">热销
+                        </p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">提交</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/public/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
+<script>
+    //菜品分类
+    $.get("/leibie1",function (data) {
+        // console.log(data)
+        $.each(data.results,function(index,value){
+            $("<option></option>").html(value.sid).appendTo($("#lei"))
+        });
+    })
+    $(function () {
+        $("#tu").change(function () {
+            var $file = $(this);
+            var fileObj = $file[0];
+            var windowURL = window.URL || window.webkitURL;
+            var dataURL;
+            var $img = $("#preview");
+
+            if (fileObj && fileObj.files && fileObj.files[0]) {
+                dataURL = windowURL.createObjectURL(fileObj.files[0]);
+                $img.attr('src', dataURL);
+            } else {
+                dataURL = $file.val();
+                var imgObj = document.getElementById("preview");
+                // 两个坑:
+                // 1、在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+                // 2、src属性需要像下面的方式添加，上面的两种方式添加，无效；
+                imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+
+            }
+        });
+    });
+    //退出账号
+    $("#tuichu").click(function () {
+        if (confirm("确认退出吗？")) {
+            $.get("/tuichu",function (data) {
+                console.log(data)
+                if (data.session == 1) {
+                    window.location = '/';
+                }
+            })
+        }
+    })
+</script>
+</body>
+</html>
